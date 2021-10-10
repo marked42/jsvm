@@ -1,0 +1,31 @@
+{
+  "name": "jsvm",
+  "version": "0.0.1",
+  "description": "A tree walk interpreter for Javascript in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marked42/jsvm.git"
+  },
+  "keywords": [
+    "interpreter",
+    "javascript",
+    "tree-walk",
+    "ECMAScript"
+  ],
+  "author": "penghui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marked42/jsvm/issues"
+  },
+  "homepage": "https://github.com/marked42/jsvm#readme",
+  "devDependencies": {
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  }
+}
