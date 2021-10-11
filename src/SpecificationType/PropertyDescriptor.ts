@@ -5,7 +5,7 @@ import {
 	JSValueObjectFunction,
 	Undefined,
 	JSValueObject,
-} from "../LanguageType";
+} from "@/LanguageType";
 
 export class PropertyDescriptor {
 	public readonly "[[Value]]": JSValue;

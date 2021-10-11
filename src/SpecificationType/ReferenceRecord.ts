@@ -3,7 +3,7 @@ import {
 	JSValueBoolean,
 	JSValueString,
 	JSValueSymbol,
-} from "../LanguageType";
+} from "@/LanguageType";
 import { EmptyValueType } from "./Empty";
 import { EnvironmentRecord } from "./EnvironmentRecord";
 

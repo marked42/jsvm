@@ -1,4 +1,4 @@
-import { JSValue, JSValueString } from "../LanguageType";
+import { JSValue, JSValueString } from "@/LanguageType";
 import { EmptyValueType } from "./Empty";
 
 export type CompletionRecordType =

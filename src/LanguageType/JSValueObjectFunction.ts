@@ -6,9 +6,9 @@ export class JSValueObjectFunction extends JSValueObject {
 
 	constructor(
 		call: any,
-		public readonly value: ObjectPropertyMap = new Map()
+		public readonly properties: ObjectPropertyMap = new Map()
 	) {
-		super(value);
+		super(properties);
 
 		this["[[Call]]"] = call;
 	}

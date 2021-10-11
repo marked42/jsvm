@@ -1,4 +1,4 @@
-import { JSValue } from "../LanguageType";
+import { JSValue } from "@/LanguageType";
 
 // TODO: not needed ?
 export class List {
