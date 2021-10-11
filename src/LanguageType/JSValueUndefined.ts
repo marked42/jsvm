@@ -8,3 +8,5 @@ export class JSValueUndefined extends JSValue {
 
 	static Undefined = new JSValueUndefined();
 }
+
+export const Undefined = JSValueUndefined.Undefined;

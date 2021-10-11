@@ -3,57 +3,93 @@ import {
 	JSValueUndefined,
 	JSValueBoolean,
 	JSValueObjectFunction,
+	Undefined,
+	JSValueObject,
 } from "../LanguageType";
 
-export type PropertyDescriptorType = "data" | "accessor";
-
-export abstract class PropertyDescriptor {
-	public readonly type: PropertyDescriptorType;
+export class PropertyDescriptor {
+	public readonly "[[Value]]": JSValue;
+	public readonly "[[Get]]": JSValueObjectFunction | JSValueUndefined;
+	public readonly "[[Set]]": JSValueObjectFunction | JSValueUndefined;
 	public readonly "[[Configurable]]": JSValueBoolean;
 	public readonly "[[Writable]]": JSValueBoolean;
 	public readonly "[[Enumerable]]": JSValueBoolean;
 
-	constructor(
-		type: PropertyDescriptorType,
-		configurable: JSValueBoolean,
-		writable: JSValueBoolean,
-		enumerable: JSValueBoolean
-	) {
-		this.type = type;
-		this["[[Configurable]]"] = configurable;
-		this["[[Writable]]"] = writable;
-		this["[[Enumerable]]"] = enumerable;
-	}
-}
-
-export class DataPropertyDescriptor extends PropertyDescriptor {
-	public readonly "[[Value]]": JSValue;
-
-	constructor(
-		value: JSValue,
-		configurable: JSValueBoolean = JSValueBoolean.False,
-		writable: JSValueBoolean = JSValueBoolean.False,
-		enumerable: JSValueBoolean = JSValueBoolean.False
-	) {
-		super("data", configurable, writable, enumerable);
+	constructor(options: {
+		value: JSValue;
+		Get: JSValueObjectFunction | JSValueUndefined;
+		Set: JSValueObjectFunction | JSValueUndefined;
+		configurable: JSValueBoolean;
+		writable: JSValueBoolean;
+		enumerable: JSValueBoolean;
+	}) {
+		const { value, Get, Set, configurable, writable, enumerable } = options;
 
 		this["[[Value]]"] = value;
+		this["[[Get]]"] = Get;
+		this["[[Set]]"] = Set;
+		this["[[Configurable]]"] = configurable;
+		this["[[Enumerable]]"] = enumerable;
+		this["[[Writable]]"] = writable;
 	}
 }
 
-export class AccessorPropertyDescriptor extends PropertyDescriptor {
-	public readonly "[[Getter]]": JSValueObjectFunction | JSValueUndefined;
-	public readonly "[[Setter]]": JSValueObjectFunction | JSValueUndefined;
-
-	constructor(
-		getter: JSValueObjectFunction | JSValueUndefined,
-		setter: JSValueObjectFunction | JSValueUndefined,
-		public configurable: JSValueBoolean = JSValueBoolean.False,
-		public writable: JSValueBoolean = JSValueBoolean.False,
-		public enumerable: JSValueBoolean = JSValueBoolean.False
-	) {
-		super("accessor", configurable, writable, enumerable);
-		this["[[Getter]]"] = getter;
-		this["[[Setter]]"] = setter;
+export function IsAccessorDescriptor(
+	desc: PropertyDescriptor | JSValueUndefined
+) {
+	if (desc === Undefined) {
+		return false;
 	}
+
+	if (desc instanceof PropertyDescriptor) {
+		if (desc["[[Get]]"] === Undefined && desc["[[Set]]"] === Undefined) {
+			return false;
+		}
+		return true;
+	}
+
+	throw new Error(
+		"Unreachable Case, desc should be PropertyDescriptor or undefined"
+	);
 }
+
+export function IsDataDescriptor(desc: PropertyDescriptor | JSValueUndefined) {
+	if (desc === Undefined) {
+		return false;
+	}
+
+	if (desc instanceof PropertyDescriptor) {
+		if (
+			desc["[[Value]]"] === Undefined &&
+			desc["[[Writable]]"] === Undefined
+		) {
+			return false;
+		}
+		return true;
+	}
+
+	throw new Error(
+		"Unreachable Case, desc should be PropertyDescriptor or undefined"
+	);
+}
+
+export function IsGenericDescriptor(
+	desc: PropertyDescriptor | JSValueUndefined
+) {
+	if (desc === Undefined) {
+		return false;
+	}
+
+	if (!IsAccessorDescriptor(desc) && !IsDataDescriptor(desc)) {
+		return true;
+	}
+	return false;
+}
+
+export function FromPropertyDescriptor(
+	desc: PropertyDescriptor | JSValueUndefined
+) {}
+
+export function ToPropertyDescriptor(obj: JSValueObject) {}
+
+export function CompletePropertyDescriptor(desc: PropertyDescriptor) {}
