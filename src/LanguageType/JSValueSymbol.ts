@@ -6,12 +6,12 @@ import { JSValueUndefined } from "./JSValueUndefined";
  * symbol values are shared by all realms
  */
 export class JSValueSymbol extends JSValue {
-	public readonly "[[Description]]": JSValueString | JSValueUndefined;
+	public readonly Description: JSValueString | JSValueUndefined;
 
 	constructor(public readonly description: JSValueString | JSValueUndefined) {
 		super("symbol");
 
-		this["[[Description]]"] = description;
+		this.Description = description;
 	}
 }
 

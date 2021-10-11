@@ -3,13 +3,18 @@ import { DeclarativeEnvironmentRecord, ObjectEnvironmentRecord } from ".";
 import { EnvironmentRecord } from "./EnvironmentRecord";
 
 export class GlobalEnvironmentRecord extends EnvironmentRecord {
-	public readonly "[[ObjectRecord]]": ObjectEnvironmentRecord;
-	public readonly "[[GlobalThisValue]]": JSValueObject;
-	public readonly "[[DeclarativeRecord]]": DeclarativeEnvironmentRecord;
-	public readonly "[[VarNames]]": string[];
+	public readonly ObjectRecord: ObjectEnvironmentRecord;
+	public readonly GlobalThisValue: JSValueObject;
+	public readonly DeclarativeRecord: DeclarativeEnvironmentRecord;
+	public readonly VarNames: string[];
 
 	constructor() {
 		super();
+
+		this.ObjectRecord = new ObjectEnvironmentRecord();
+		this.GlobalThisValue = new JSValueObject();
+		this.DeclarativeRecord = new DeclarativeEnvironmentRecord();
+		this.VarNames = [];
 	}
 
 	HasBinding(name: string): boolean {

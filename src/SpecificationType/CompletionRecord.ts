@@ -9,17 +9,17 @@ export type CompletionRecordType =
 	| "throw";
 
 export class CompletionRecord {
-	public readonly "[[Type]]": CompletionRecordType;
-	public readonly "[[Value]]": EmptyValueType<JSValue>;
-	public readonly "[[Target]]": EmptyValueType<JSValueString>;
+	public readonly Type: CompletionRecordType;
+	public readonly Value: EmptyValueType<JSValue>;
+	public readonly Target: EmptyValueType<JSValueString>;
 
 	constructor(
 		type: CompletionRecordType,
 		value: EmptyValueType<JSValue>,
 		target: EmptyValueType<JSValueString>
 	) {
-		this["[[Type]]"] = type;
-		this["[[Value]]"] = value;
-		this["[[Target]]"] = target;
+		this.Type = type;
+		this.Value = value;
+		this.Target = target;
 	}
 }

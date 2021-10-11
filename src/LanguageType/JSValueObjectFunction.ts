@@ -2,7 +2,7 @@ import { JSValueObject, ObjectPropertyMap } from "./JSValueObject";
 
 export class JSValueObjectFunction extends JSValueObject {
 	// TODO: what is the [Call] value
-	public readonly "[[Call]]": any;
+	public readonly Call: any;
 
 	constructor(
 		call: any,
@@ -10,6 +10,6 @@ export class JSValueObjectFunction extends JSValueObject {
 	) {
 		super(properties);
 
-		this["[[Call]]"] = call;
+		this.Call = call;
 	}
 }

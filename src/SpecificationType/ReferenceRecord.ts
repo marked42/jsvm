@@ -12,10 +12,10 @@ type BaseType = JSValue | EnvironmentRecord | "unresolvable";
 type ReferencedNameType = JSValueString | JSValueSymbol;
 
 export class ReferenceRecord {
-	public readonly "[[Base]]": BaseType;
-	public readonly "[[ReferencedName]]": ReferencedNameType;
-	public readonly "[[Strict]]": JSValueBoolean;
-	public readonly "[[ThisValue]]": EmptyValueType<JSValue>;
+	public readonly Base: BaseType;
+	public readonly ReferencedName: ReferencedNameType;
+	public readonly Strict: JSValueBoolean;
+	public readonly ThisValue: EmptyValueType<JSValue>;
 
 	constructor(
 		base: BaseType,
@@ -23,9 +23,9 @@ export class ReferenceRecord {
 		strict: JSValueBoolean,
 		thisValue: EmptyValueType<JSValue>
 	) {
-		this["[[Base]]"] = base;
-		this["[[ReferencedName]]"] = referencedName;
-		this["[[Strict]]"] = strict;
-		this["[[ThisValue]]"] = thisValue;
+		this.Base = base;
+		this.ReferencedName = referencedName;
+		this.Strict = strict;
+		this.ThisValue = thisValue;
 	}
 }

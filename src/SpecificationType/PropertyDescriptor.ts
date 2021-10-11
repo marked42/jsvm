@@ -8,12 +8,12 @@ import {
 } from "@/LanguageType";
 
 export class PropertyDescriptor {
-	public readonly "[[Value]]": JSValue;
-	public readonly "[[Get]]": JSValueObjectFunction | JSValueUndefined;
-	public readonly "[[Set]]": JSValueObjectFunction | JSValueUndefined;
-	public readonly "[[Configurable]]": JSValueBoolean;
-	public readonly "[[Writable]]": JSValueBoolean;
-	public readonly "[[Enumerable]]": JSValueBoolean;
+	public readonly Value: JSValue;
+	public readonly Get: JSValueObjectFunction | JSValueUndefined;
+	public readonly Set: JSValueObjectFunction | JSValueUndefined;
+	public readonly Configurable: JSValueBoolean;
+	public readonly Writable: JSValueBoolean;
+	public readonly Enumerable: JSValueBoolean;
 
 	constructor(options: {
 		value: JSValue;
@@ -25,12 +25,12 @@ export class PropertyDescriptor {
 	}) {
 		const { value, Get, Set, configurable, writable, enumerable } = options;
 
-		this["[[Value]]"] = value;
-		this["[[Get]]"] = Get;
-		this["[[Set]]"] = Set;
-		this["[[Configurable]]"] = configurable;
-		this["[[Enumerable]]"] = enumerable;
-		this["[[Writable]]"] = writable;
+		this.Value = value;
+		this.Get = Get;
+		this.Set = Set;
+		this.Configurable = configurable;
+		this.Enumerable = enumerable;
+		this.Writable = writable;
 	}
 }
 
@@ -42,7 +42,7 @@ export function IsAccessorDescriptor(
 	}
 
 	if (desc instanceof PropertyDescriptor) {
-		if (desc["[[Get]]"] === Undefined && desc["[[Set]]"] === Undefined) {
+		if (desc.Get === Undefined && desc.Set === Undefined) {
 			return false;
 		}
 		return true;
@@ -59,10 +59,7 @@ export function IsDataDescriptor(desc: PropertyDescriptor | JSValueUndefined) {
 	}
 
 	if (desc instanceof PropertyDescriptor) {
-		if (
-			desc["[[Value]]"] === Undefined &&
-			desc["[[Writable]]"] === Undefined
-		) {
+		if (desc.Value === Undefined && desc.Writable === Undefined) {
 			return false;
 		}
 		return true;

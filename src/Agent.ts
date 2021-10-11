@@ -17,5 +17,5 @@ export class Agent {
 		}
 	}
 
-	public readonly Function: JSValueObjectFunction | null;
+	// public readonly Function: JSValueObjectFunction | null;
 }
