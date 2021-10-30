@@ -29,8 +29,6 @@
         1. WithStatement
     1. GlobalEnvironmentRecord script global declarations
 
-术语解释，变量和绑定，文章中统一使用绑定
-
 Questions
 
 1. 绑定的名称是否可以删除
@@ -136,3 +134,57 @@ console.log(undefined);
 # 局部作用域
 
 # 模块作用域
+
+# this 关键字
+
+通过 ResolveThisBinding 来确定，第一步 GetThisEnvironment，第二部 GetThisBinding
+
+GetThisEnvironment 验证 LexicalEnvironment 的 outer 向上寻找直到第一个 HasThisBinding 为 true 的语法环境
+
+GlobalEnvironment 的 HasThisBinding 为 true，向上寻找 GetThisEnvironment 总会结束， GetThisBinding 返回全局对象
+ModuleEnvironment 的 HasBinding 为 true，GetThisBinding 返回 undefined
+LexicalEnvironment 的 HasThisBinding 默认为 false，所以局部作用域没有 this
+ObjectEnvironmentRecord 的 HasThisBinding 也为 false
+FunctionEnvironmentRecord 的 HasThisBinding 普通函数 true，箭头函数 false，返回的是函数环境记录创建时通过 BindThisValue 绑定的 thisValue 值。
+
+上面这几种情况都比较简单，关键是 FunctionEnvironmentRecord 中的绑定 this 值有多种情况。这个 this 值由函数调用决定。
+
+Call(thisArgument, argumentsList) -> OrdinaryCallBindThis(F, calleeContext, thisArgument)这个 thisArgument 就是绑定的 this。
+
+这里分为几种情况
+
+1. fn.call()/fn.apply 对应显式指定 thisArgument
+1. 构造函数 Construct 调用 this 是新建对象
+1. 其余函数调用情况 12.3.4.1 函数 fn CallExpression 的 Runtime Evaluation
+
+区分被调用的函数值本身的类型
+
+1. Reference 类型
+    1. PropertyReference
+        1. super reference -> super 的 this
+        1. normal reference base object
+    1. Record Reference 类型 base 是 Environment Record 类型，调用 envRec.WithBaseObject() 获取 Environment Record 的 base 作为 this
+1. Type(fn) 值类型 this 是 undefined
+
+```js
+{
+	// this是全局对象
+	console.log(this);
+	with ({ name: 1 }) {
+		// TODO: 如果 with statement的 withEnvironment flag为true，那么WithBaseObject应该返回绑定对象，this应该{name: 1}，实际是全局对象，为什么？
+		console.log("i: ", this);
+	}
+}
+```
+
+严格模式对 this 的影响
+
+```js
+function f() {
+	return !this;
+} // 返回false，因为"this"指向全局对象，"!this"就是false
+function f() {
+	"use strict";
+	return !this;
+} // 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
+```
