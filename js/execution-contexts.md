@@ -153,7 +153,7 @@ Call(thisArgument, argumentsList) -> OrdinaryCallBindThis(F, calleeContext, this
 
 这里分为几种情况
 
-1. fn.call()/fn.apply 对应显式指定 thisArgument
+1. fn.bind/fn.call()/fn.apply 对应显式指定 thisArgument
 1. 构造函数 Construct 调用 this 是新建对象
 1. 其余函数调用情况 12.3.4.1 函数 fn CallExpression 的 Runtime Evaluation
 
@@ -165,6 +165,8 @@ Call(thisArgument, argumentsList) -> OrdinaryCallBindThis(F, calleeContext, this
         1. normal reference base object
     1. Record Reference 类型 base 是 Environment Record 类型，调用 envRec.WithBaseObject() 获取 Environment Record 的 base 作为 this
 1. Type(fn) 值类型 this 是 undefined
+
+ecma-262 test 收集 语言行为测试用例，测试用例最好能够不约束实现 JS 引擎的语言。
 
 ```js
 {
@@ -188,3 +190,5 @@ function f() {
 	return !this;
 } // 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
 ```
+
+1. [MDN this](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)
