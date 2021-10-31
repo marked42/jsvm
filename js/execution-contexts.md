@@ -75,6 +75,9 @@ Questions
 1. 模块中的绑定是间接的，这和 node 中的绑定效果上有何区别？
     1. 一个模块只对应一个 ModuleRecord，是单例的，那么区分 ModuleRecord 的唯一 id 是什么？
     1. 有办法为同一个模块文件生成多个 ModuleRecord 么，通过不同别名引入的方式？
+1. 如何访问函数名称，匿名函数有名字么？
+1. 在名称为 f 的函数表达式内部访问 f，支持递归调用。
+1. 函数定义嵌套在 if 语句中如何生效？
 
 # 全局作用域环境
 
@@ -131,9 +134,43 @@ console.log(undefined);
 
 # 函数作用域
 
+解释这段代码，函数表达式对应的函数作用域有函数名同名的定义，可以被 let/const 覆盖
+
+```js
+(function test(i) {
+	if (i >= 2) {
+		return;
+	}
+	console.log("test: ", i);
+	test(i + 1);
+	let test = 1;
+	debugger;
+})(0);
+
+console.log("test: ", typeof test);
+```
+
 # 局部作用域
 
 # 模块作用域
+
+# 对象环境记录 Object Environment Record
+
+有 bindingObject 和 withEnvironment 两个字段，分别对应全局环境和 with 语句
+
+1. 全局环境的[[ObjectRecord]]，其中 bindingObject 是全局对象，withEnvironment: false 默认值
+1. with 语句的对象环境记录，绑定对象是 with 语句中 expression 表达式的值，withEnvironment: true
+
+对象环境记录就这两种情况，withEnvironment 字段用来区分这两种情况，
+
+HasBinding(N)
+
+1. 对于 with 语句对应的对象环境记录，绑定对象上有名称为 N 的属性返回 true HasProperty(N)会查找原型链。属性名要由 unscopable 过滤，不包含在 unscopable 的 返回 true
+1. 对于全局环境对应的对象环境记录，总是返回 true，意味着全局环境中查找某个绑定时，这个逻辑做**兜底**，总是会找到。
+
+GetBindingValue(N)
+
+在绑定对象 bindings 上查找名为 N 的属性，Get(bindings, N) 返回 Reference/undefined
 
 # this 关键字
 
@@ -157,7 +194,9 @@ Call(thisArgument, argumentsList) -> OrdinaryCallBindThis(F, calleeContext, this
 1. 构造函数 Construct 调用 this 是新建对象
 1. 其余函数调用情况 12.3.4.1 函数 fn CallExpression 的 Runtime Evaluation
 
-区分被调用的函数值本身的类型
+区分被调用的函数值本身的类型 GetThisValue
+
+EvaluateCall 中计算 thisValue
 
 1. Reference 类型
     1. PropertyReference
@@ -172,9 +211,18 @@ ecma-262 test 收集 语言行为测试用例，测试用例最好能够不约�
 {
 	// this是全局对象
 	console.log(this);
-	with ({ name: 1 }) {
-		// TODO: 如果 with statement的 withEnvironment flag为true，那么WithBaseObject应该返回绑定对象，this应该{name: 1}，实际是全局对象，为什么？
+	const base = {
+		name: 1,
+		context: function () {
+			console.log("context: ", this);
+		},
+	};
+	with (base) {
+		// ObjectEnvironment中，HasThisBinding为false，所以需要向上寻找到全局的this
 		console.log("i: ", this);
+
+		// context是一个引用类型 Record Reference，base是base变量，
+		context();
 	}
 }
 ```
