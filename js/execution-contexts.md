@@ -227,6 +227,61 @@ ecma-262 test 收集 语言行为测试用例，测试用例最好能够不约�
 }
 ```
 
+解释下面例子，跟绑定到全局对象类似，
+TODO: 右值函数调用的情况呢？
+
+```js
+function foo() {
+	console.log(this.a);
+}
+var a = 2;
+var o = { a: 3, foo: foo };
+var p = { a: 4 };
+o.foo(); // 3
+(1, o.foo)(); // TODO: 2 chrome, undefined in node
+(p.foo = o.foo)(); // TODO: 2 chrome, undefined in node
+```
+
+函数作为参数传递时丢失了原来来的 this，这是个容易忽略的地方
+
+```js
+// 需要手动将类方法全部绑定到this
+class Test {
+	a(fn) {
+		console.log(fn());
+	}
+
+	b() {
+		return this;
+	}
+
+	main() {
+		this.a(this.b);
+	}
+}
+const t = new Test();
+t.main();
+
+// forEach函数第二个参数显式的指定this
+function foo(el) {
+	console.log(el, this.id);
+}
+var obj = {
+	id: "awesome",
+};
+// use `obj` as `this` for `foo(..)` calls
+[1, 2, 3].forEach(foo, obj);
+
+// bind/apply/call函数指定this
+```
+
+构造函数中的 this [[Construct]]语义
+
+1. bind 产生的函数作为构造函数使用时 this 还是新构造的对象，而不是 bind 的参数，构造函数语义优先于 Bind
+   是否允许重复 bind？
+1. 参考 MDN 的 bind 函数实现。
+1. bind 的第一个参数是 null/undefined 时被忽略，相当于 bind 没生效
+
 严格模式对 this 的影响
 
 ```js
