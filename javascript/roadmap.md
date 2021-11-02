@@ -4,7 +4,7 @@
 
 Deep dive Into Javascript
 
-- Concepts & Application Patterns & Implementation
+-   Concepts & Application Patterns & Implementation
 
 1. 语言特性的应用，并且从规范中剖析其原理
 1. JS 的典型问题场景与模式
@@ -64,3 +64,5 @@ Deep dive Into Javascript
 ### 类
 
 ## Patterns
+
+1. [Javascript Patterns](http://shichuan.github.io/javascript-patterns/)

@@ -7,3 +7,8 @@
 		a();
 	}
 })();
+function foo() {
+	console.log(this);
+}
+var a = 2;
+foo(); // 2

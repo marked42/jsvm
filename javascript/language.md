@@ -15,11 +15,11 @@
 1. var a = 1 声明了变量 a; 和 a = 1 只是隐式的在全局对象上增加了属性 a，没有声明变量。区别的例子。
 
 ```js
-alert(a) // undefined
-alert(b) // "b" is not defined
+alert(a); // undefined
+alert(b); // "b" is not defined
 
-b = 10
-var a = 20
+b = 10;
+var a = 20;
 ```
 
 EnvironmentRecord 类型
@@ -67,66 +67,66 @@ new Function('var a = 1')
 
 ```js
 var a = { n: 1 },
-  ref = a
-a.x = a = { n: 2 }
-console.log(a.x) // --> undefined
-console.log(ref.x) // {n:2}
+	ref = a;
+a.x = a = { n: 2 };
+console.log(a.x); // --> undefined
+console.log(ref.x); // {n:2}
 ```
 
 ```js
-;(function out() {
-  var a = 'out'
+(function out() {
+	var a = "out";
 
-  function test() {
-    console.log(a)
+	function test() {
+		console.log(a);
 
-    while (false) {
-      var a = 'in'
-    }
-  }
-  test()
-})()
+		while (false) {
+			var a = "in";
+		}
+	}
+	test();
+})();
 ```
 
 静态作用域 函数作为参数 downwards funarg problem
 
 ```js
-let x = 10
+let x = 10;
 
 function foo() {
-  console.log(x)
+	console.log(x);
 }
 
 function bar(funArg) {
-  let x = 20
-  funArg() // 10, not 20!
+	let x = 20;
+	funArg(); // 10, not 20!
 }
 
 // Pass `foo` as an argument to `bar`.
-bar(foo)
+bar(foo);
 ```
 
 upwards funarg problem
 
 ```js
 function foo() {
-  let x = 10
+	let x = 10;
 
-  // Closure, capturing environment of `foo`.
-  function bar() {
-    return x
-  }
+	// Closure, capturing environment of `foo`.
+	function bar() {
+		return x;
+	}
 
-  // Upward funarg.
-  return bar
+	// Upward funarg.
+	return bar;
 }
 
-let x = 20
+let x = 20;
 
 // Call to `foo` returns `bar` closure.
-let bar = foo()
+let bar = foo();
 
-bar() // 10, not 20!
+bar(); // 10, not 20!
 ```
 
 nonlocal variable
@@ -198,10 +198,6 @@ Realm: A code realm is an object which encapsulates a separate global environmen
 a direct realm equivalent in browser environment is the iframe element, which exactly provides a custom global environment. In Node.js it is close to the sandbox of the vm module.
 
 ### 作用域
-
-### This
-
-1.  [This 带来的困惑](https://zhuanlan.zhihu.com/p/27536677)
 
 ## 函数
 
@@ -301,15 +297,15 @@ ExportDeclaration : export default HoistableDeclaration
 Avoid using sparse array.
 
 ```javascript
-let a = new Array(1, 2, 3)
-a // [1, 2, 3]
+let a = new Array(1, 2, 3);
+a; // [1, 2, 3]
 
-let b = new Array(3) // single parameter 3, no slots
-b.length // 3
+let b = new Array(3); // single parameter 3, no slots
+b.length; // 3
 
-let c = Array.apply(null, { length: 3 }) // 3 slots with value as undefined
+let c = Array.apply(null, { length: 3 }); // 3 slots with value as undefined
 
-let c = [undefined, undefined, undefined]
+let c = [undefined, undefined, undefined];
 ```
 
 ### Number 精度问题
