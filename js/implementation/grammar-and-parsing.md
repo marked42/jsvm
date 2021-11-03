@@ -9,6 +9,13 @@ ECMAScript 源码的形式是 Unicode 码点流，对程序文本具体编码没
 1. 正则表达式语法（RegExp grammar）描述了 Unicode 码点如何转换成正咋表达式。
 1. 表示数字的字符串语法（numeric grammar）描述了字符串如何转换成数字值。
 
+### 词法与语法
+
+1. Javascript 脚本运行模型
+1. Spec Chapter 10 Source Code
+1. Spec Chapter 11 Lexical Grammar
+1. Automatic Semi Colon
+
 ## 词法解析
 
 goal symbol 用来区分存在歧义的词法。

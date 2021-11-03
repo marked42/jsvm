@@ -92,19 +92,6 @@ let point2 = { y: 100, x: 200 };
 
 [JSX AST](https://github.com/facebook/jsx)
 
-## 运行环境
-
-全局环境、Exotic Object 宿主环境
-
-## 事件循环
-
-v8 采用事件循环机制在主线程执行 JS 代码
-
-宏任务、微任务、和栈溢出
-
-1. 微任务队列，微任务检查点 check point
-1. 宏任务队列，一个宏任务执行完成后进入微任务检查点
-
 ## 垃圾回收
 
 garbage collection
@@ -125,7 +112,10 @@ garbage collection
 1.  https://blog.mozilla.org/luke/2012/10/02/optimizing-javascript-variable-access/
 1.  the implementation of lua 5.0
 
-## v8
+## VM
+
+1.  [microtask 队列与 async/await 源码分析](https://zhuanlan.zhihu.com/p/134647506)
+1.  [Promise V8 源码分析(一)](https://zhuanlan.zhihu.com/p/264944183)
 
 -   [ ] [深入 V8 引擎-第 01 课：上手开始看 V8 Ignition 解释器的字节码（Bytecodes）](https://www.bilibili.com/video/BV1FJ411E7Sf)
 -   [ ] [v8 引擎是如何知道 js 数据类型的？](https://www.zhihu.com/question/62732293/answer/201723301)
