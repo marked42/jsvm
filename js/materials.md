@@ -23,9 +23,9 @@ _文章_
 
 _教程与书籍_
 
-1. You Don't Know JS
+1. You Don't Know Javascript
 1. Understanding Javascript 6
-1. Secrets of the Effective Javascript
+1. Secrets of the Javascript Ninja
 1. Effective Javascript
 1. Javascript The Good Parts
 1. Eloquent Javascript
