@@ -19,28 +19,6 @@
     1. OrdinaryHasInstance 7.3.19
     1. @@hasInstance
 
-### 遍历
-
-Object.keys()/Object.values()/Object.entries
-
-9.1.12 `[[OwnPropertyKeys]]`
-
-### for in
-
-for in 9.1.11 `[[Enumerate]]`() 遍历属性
-
-1. 只遍历`enumerable: true`的 key
-1. key 值出现一次，对象 key 隐藏其原型链上的同名属性
-1. 遍历过程中属性发生变化的话，尚未被遍历到的属性被删除，该属性不会被遍历到；新增的属性
-
-EnumerableOwnNames
-
-1. 只遍历 string 类型的 key
-
-### for of
-
-https://mp.weixin.qq.com/s/foXbAj3ODqFKYGUP5K8MkQ
-
 ### 对象与原型链
 
 内容顺序
@@ -57,6 +35,7 @@ symbol index: PropertyDescriptor
 
 1. 对象就是一组键值对记录 对应基本操作 Object.keys() [[OwnPropertyKeys]] / GetOwnPropertyNames / GetOwnProperty/HasOwnProperty/DefineOwnProperty/DefineProperties
 
+1. `[[Get]]` 访问对象属性的两种形式 `a.b`，`a[b]`
 1. 控制对键值的读写 Writable/Enumerable/Configurable
 1. 增加原型[[Prototype]]， GetPrototypeOf, SetPrototypeOf / Get / Set
 1. 对于`[[Configurable]]`为`false`的属性值，再次使用`defineProperty`定义`[[Configurable]]`为`true`抛出错误么？
@@ -78,6 +57,28 @@ Questions
 对象上的 [[Set]] 语义和 defineProperty 区别
 
 Immutability
+
+### 遍历
+
+Object.keys()/Object.values()/Object.entries
+
+9.1.12 `[[OwnPropertyKeys]]`
+
+### for in
+
+for in 9.1.11 `[[Enumerate]]`() 遍历属性
+
+1. 只遍历`enumerable: true`的 key
+1. key 值出现一次，对象 key 隐藏其原型链上的同名属性
+1. 遍历过程中属性发生变化的话，尚未被遍历到的属性被删除，该属性不会被遍历到；新增的属性
+
+EnumerableOwnNames
+
+1. 只遍历 string 类型的 key
+
+### for of
+
+https://mp.weixin.qq.com/s/foXbAj3ODqFKYGUP5K8MkQ
 
 ### 不变性
 
@@ -130,3 +131,9 @@ frozen 将每个属性设置为 configurable: false, writable: false
 ### 相等性
 
 7.2.9 === == 符号
+
+### 对象拷贝
+
+### Exotic Object
+
+以数组为例
