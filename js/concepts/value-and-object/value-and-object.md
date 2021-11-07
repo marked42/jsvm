@@ -11,6 +11,36 @@
 1. 对象有内置的槽保存信息
 1. 使用 `a.b`和 `a[b]`两种形式访问对象属性，key 只能是 string 和 symbol 类型，数字或者其他类型 key 值会被转换成字符串访问。
 
+### 数据类型
+
+1. typeof 12.5.6 /
+1. instanceof
+    1. InstanceofOperator 12.9.4
+    1. OrdinaryHasInstance 7.3.19
+    1. @@hasInstance
+
+### 遍历
+
+Object.keys()/Object.values()/Object.entries
+
+9.1.12 `[[OwnPropertyKeys]]`
+
+### for in
+
+for in 9.1.11 `[[Enumerate]]`() 遍历属性
+
+1. 只遍历`enumerable: true`的 key
+1. key 值出现一次，对象 key 隐藏其原型链上的同名属性
+1. 遍历过程中属性发生变化的话，尚未被遍历到的属性被删除，该属性不会被遍历到；新增的属性
+
+EnumerableOwnNames
+
+1. 只遍历 string 类型的 key
+
+### for of
+
+https://mp.weixin.qq.com/s/foXbAj3ODqFKYGUP5K8MkQ
+
 ### 对象与原型链
 
 内容顺序
@@ -32,10 +62,6 @@ symbol index: PropertyDescriptor
 1. 对于`[[Configurable]]`为`false`的属性值，再次使用`defineProperty`定义`[[Configurable]]`为`true`抛出错误么？
 1. 对于`[[Configurable]]`为`false`的属性，哪些属性的操作被限制了？ Data Property/Accessor Property 互转
 1. Accessor Property Get/Set
-
-1. 左值、右值
-1. 相等性判断
-1. 类型转换
 
 对于原型链上的数据属性，读操作继承，写操作不继承；访问器属性读写操作都继承。
 
@@ -90,3 +116,17 @@ frozen 将每个属性设置为 configurable: false, writable: false
 1. 引用类型
 1. Record/List/CompletionRecord/PropertyDesciptor
 1. Lexical Environment / EnvironmentRecord
+
+1. 左值、右值
+
+### 类型转换
+
+7.1 Type Conversion 臭名昭著的真值表
+
+### 测试与比较操作
+
+7.2 Testing and comparison operations
+
+### 相等性
+
+7.2.9 === == 符号

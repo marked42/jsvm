@@ -45,7 +45,6 @@ _其他_
 
 1. [深入 javascript](https://juejin.im/post/59278e312f301e006c2e1510)
 1. [JavaScript 深入之执行上下文](https://github.com/mqyqingfeng/Blog/issues/8)
-1. [关于 JavaScript Object.keys() 排序问题的探索](https://mp.weixin.qq.com/s/foXbAj3ODqFKYGUP5K8MkQ)
 
 People
 
