@@ -19,6 +19,22 @@
     1. OrdinaryHasInstance 7.3.19
     1. @@hasInstance
 
+### 引用类型
+
+base 分为几类 GetBase/GetReferencedName/IsStrictReference
+
+1. Primitive IsPropertyReference / HasPrimitiveBase
+1. object IsPropertyReference
+1. undefined IsUnresolvableReference
+1. super IsSuperReference
+1. EnvironmentRecord
+
+GetValue/PutValue/GetThisValue/InitializeReferencedBinding
+
+PutValue 中 对于 UnresolvableReference 的处理会造成隐式的在全局对象上添加同名属性，也就是全局变量。
+
+GetThisValue 使用在 GetValue/PutValue/FunctionCall 三个地方，因为 Getter/Setter/Function 三个地方用到 this
+
 ### 对象与原型链
 
 内容顺序
