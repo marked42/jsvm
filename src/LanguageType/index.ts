@@ -7,5 +7,6 @@ export * from "./JSValueObjectFunction";
 export * from "./JSValueString";
 export * from "./JSValueUndefined";
 export * from "./JSValueSymbol";
+export * from "./JSValueNull";
 // TODO: missing BigInt
 // export * from "./JSValueBigInt";

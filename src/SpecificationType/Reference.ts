@@ -46,9 +46,5 @@ export function HasPrimitiveBase(ref: Reference) {
 }
 
 export function IsPropertyReference(ref: Reference) {
-	if (ref.base instanceof EnvironmentRecord) {
-		return false;
-	}
-
-	return ref.base.IsPrimitiveType();
+	return ref.base.IsObject() || ref.base.IsPrimitiveType();
 }

@@ -13,6 +13,4 @@ export class JSValueObject extends JSValue {
 	constructor(public readonly properties: ObjectPropertyMap = new Map()) {
 		super("object");
 	}
-
-	static Null = new JSValueObject();
 }
