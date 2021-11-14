@@ -26,7 +26,7 @@ base 分为几类 GetBase/GetReferencedName/IsStrictReference
 1. Primitive IsPropertyReference / HasPrimitiveBase
 1. object IsPropertyReference
 1. undefined IsUnresolvableReference
-1. super IsSuperReference
+1. super IsSuperReference MakeSuperPropertyReference
 1. EnvironmentRecord
 
 GetValue/PutValue/GetThisValue/InitializeReferencedBinding
