@@ -184,3 +184,75 @@ setTimeout(()=>console.log(i), 1000);
 也就是说，在语法上这里只需要两个“块级作用域”，而实际运行时却需要为其中的第二个块级作用域创建无数个副本。
 
 这就是 for 语句中使用“let/const”这种块级作用域声明所需要付出的代价。
+
+## 全局环境
+
+VarNames 隐式创建的全局属性变量可以删除，var/let/const 不能删除。
+
+绑定的相关问题
+
+绑定的状态 不存在 -> 声明 —> 初始化 -> 只读
+
+1. 声明 重复声明问题
+1. 初始化
+1. 读取 读取未初始化的绑定
+1. 写入 写入未初始化的绑定、写入只读的绑定
+1. 删除
+
+例子分析
+
+```js
+// 发生了什么
+var x = (y = 100);
+
+// 分析
+// 意味着给旧的变量添加一个指向新变量的属性。
+var a = { n: 1 };
+a.x = a = { n: 2 };
+alert(a.x); // --> undefined
+
+// with的隐式泄露到全局对象
+with ((obj = {})) {
+	y = 100;
+}
+```
+
+函数名称的确定，匿名函数绑定到标识符时，name 属性初始化为标识符名称，且后续保持不变。
+
+```js
+export default function test() {}
+export default function () {}
+
+const fun1 = function test() {}
+const fun2 = function () {}
+const fun3 = () => {}
+
+const obj = {
+  left1: function test() {},
+  left2: function () {},
+  left3: () => {},
+}
+```
+
+块级作用域，大多数语句没有块级作用域，块级作用域的四个情况
+
+1. try try/catch/finally
+1. with statement with (x) {}
+1. block statement {}
+1. for of statement
+
+```js
+// i全局一个 forEnv
+for (let i = 0; i; ;) {
+  // loopEnv
+  // 每个循环一个
+  let j = 0;
+}
+
+// 每个循环一个
+for (let i of values) {
+  let j = 0;
+}
+```
+
+switch statement 没有全局作用域，所以在其中声明变量会提示报错。
